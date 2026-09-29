@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Office Data Detective — Game Pembelajaran JOIN</title>
+<style>
+ :root{--paper:#F7F9FB;--paper2:#FFFFFF;--surface:#FFFFFF;--surface-soft:#F8FAFC;--surface-muted:#F1F5F9;--accent:#1D6F8C;--accent-dark:#155E75;--accent-deep:#0F5268;--accent-teal:#0E7C7B;--accent-soft:#E6F3F5;--accent-pale:#ECF6F7;--ink:#1F2937;--muted:#64748B;--line:#E2E8F0;--line-strong:#CBD5E1;--red:#DC2626;--red-dark:#B91C1C;--red-bg:#FEE2E2;--red-border:#FCA5A5;--green:#16A34A;--green-dark:#15803D;--green-text:#166534;--green-bg:#DCFCE7;--green-border:#86EFAC;--amber:#D97706;--amber-dark:#92400E;--amber-bg:#FEF3C7;--amber-border:#FCD34D;--info:#1E40AF;--info-bg:#EFF6FF;--info-border:#BFDBFE;--accent-border:#C7E5E8;--cream:#FFFFFF;--stamp:#0E7C7B;--shadow:0 12px 30px rgba(15,23,42,.10);--ink-rgb:31,41,55;--accent-rgb:29,111,140;--amber-rgb:217,119,6;--serif:'Libre Baskerville',Georgia,serif;--mono:'Special Elite','Courier New',monospace}
+*{box-sizing:border-box}html{background:var(--surface-muted)}body{margin:0;color:var(--ink);line-height:1.55;font-family:var(--serif);background:repeating-linear-gradient(135deg,rgba(var(--ink-rgb),.025) 0 1px,transparent 1px 7px),radial-gradient(ellipse at center,var(--paper) 0,var(--surface-soft) 72%,var(--line-strong) 100%);min-height:100vh}body:after{content:"";position:fixed;inset:0;pointer-events:none;box-shadow:inset 0 0 110px rgba(var(--ink-rgb),.07);z-index:20}
+button,input,textarea{font:inherit}.app{max-width:1180px;margin:auto;padding:24px 18px 34px;position:relative;z-index:1}header{position:relative;background:linear-gradient(135deg,var(--accent-dark),var(--accent) 55%,var(--accent-teal));color:var(--cream);border:3px solid var(--accent-deep);border-radius:5px;padding:25px 26px 21px;box-shadow:var(--shadow);overflow:hidden}header:before{content:"DOSSIER";position:absolute;right:18px;top:15px;font:16px var(--mono);letter-spacing:.18em;opacity:.3;transform:rotate(-5deg)}.brand{display:flex;gap:15px;align-items:center}.logo{width:55px;height:55px;border:2px dashed var(--accent-soft);border-radius:50%;display:grid;place-items:center;font-size:27px;background:rgba(255,255,255,.08)}h1,h2,h3{font-family:var(--serif)}h1{font-size:clamp(34px,6vw,56px);margin:0 0 12px;letter-spacing:-.025em;line-height:.98;font-weight:800}.subtitle{margin:0;opacity:.9}.topbar{margin-top:20px}.progress-wrap{width:100%}.progress{display:none}.progress-label{font:13px var(--mono);margin-top:8px;opacity:.95}.case-tabs{display:flex;gap:6px;flex-wrap:wrap}.folder-tab{position:relative;border:1px solid rgba(255,255,255,.4);border-bottom:3px solid rgba(var(--ink-rgb),.28);background:rgba(255,255,255,.12);color:var(--cream);padding:8px 13px 7px;clip-path:polygon(0 14%,10% 0,34% 0,40% 9%,100% 9%,100% 100%,0 100%);font:12px var(--mono);letter-spacing:.02em;opacity:.48}.folder-tab.done{background:var(--green);opacity:1;border-color:var(--green-dark)}.folder-tab.active{background:var(--accent);color:var(--cream);opacity:1;border-color:var(--accent);transform:translateY(-2px);font-weight:bold}.folder-tab{display:inline-flex;align-items:center;gap:5px}.line-icon{width:15px;height:15px;display:inline-block;flex:none;vertical-align:middle}.line-icon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px}.join-tag{display:inline-flex;align-items:center;gap:4px}.join-tag .line-icon{width:12px;height:12px}
+main{margin-top:18px}.card{position:relative;background:repeating-linear-gradient(135deg,rgba(71,85,105,.014) 0 1px,transparent 1px 8px),var(--paper2);border:1px solid var(--line-strong);border-radius:4px;box-shadow:var(--shadow);padding:23px;margin-bottom:18px}.card:before{content:"";position:absolute;left:10px;right:10px;top:8px;border-top:1px solid rgba(100,116,139,.16)}.paperclip-icon{position:absolute;left:8px;top:8px;width:16px;height:22px;color:var(--accent-dark);transform:rotate(-12deg);pointer-events:none;z-index:2}.paperclip-icon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round}.hero-illustration{width:min(220px,72vw);margin:0 auto 20px;color:var(--accent);display:flex;justify-content:center}.hero-illustration svg{width:100%;height:auto;display:block;overflow:visible}.hero-illustration svg path,.hero-illustration svg circle,.hero-illustration svg line{fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}.hero-illustration .hero-magnifier{stroke:currentColor}.hero-illustration .hero-magnifier circle{stroke-width:2.8}.hero-illustration .desk-line{stroke-width:1.2;opacity:.45}.official-stamp{position:absolute;top:16px;right:16px;width:128px;height:128px;color:var(--accent);opacity:.28;transform:rotate(-8deg);pointer-events:none;z-index:0}.official-stamp .stamp-text{font-family:var(--mono);font-weight:bold;fill:currentColor;stroke:none}.official-stamp~*{position:relative;z-index:1}.screen{display:none}.screen.active{display:block}h2{margin:0 0 10px;font-size:clamp(21px,3vw,29px)}h3{margin:20px 0 8px;font-family:var(--mono);font-size:13px;line-height:1.2;text-transform:uppercase;letter-spacing:.16em;color:var(--accent);font-weight:800}.step-heading{display:flex;align-items:center;gap:11px;margin:18px 0 12px}.step-heading .step-number{flex:0 0 30px;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:var(--cream);font-family:var(--mono);font-size:16px;font-weight:800;letter-spacing:0;box-shadow:0 2px 0 rgba(var(--ink-rgb),.14)}.step-heading>span:last-child{display:block}.muted{color:var(--muted)}.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface-muted);color:var(--ink);border-radius:2px;padding:5px 9px;font:11px var(--mono);text-transform:uppercase;letter-spacing:.05em}.badge.green{color:var(--green-text);background:var(--green-bg);border-color:var(--green-border)}.badge.orange{color:var(--amber);background:var(--amber-bg);border-color:var(--amber-border)}.badge.blue{color:var(--accent-dark);background:var(--surface-muted);border-color:var(--line-strong)}.grid{display:grid;gap:16px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 10px}.case-heading{display:flex;align-items:center;gap:12px}.case-icon{width:42px;height:42px;flex:none;color:var(--accent-dark)}.case-icon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.scenario{background:var(--accent-pale);background-image:none;border:1px solid var(--accent-border);border-left:6px solid var(--accent);padding:22px 22px 22px 24px;border-radius:2px;margin:18px 0;box-shadow:0 12px 28px rgba(var(--ink-rgb),.08)}.scenario b{font:12px var(--mono);text-transform:uppercase}.callout{background:var(--surface-soft);border:1px dashed rgba(100,116,139,.28);border-radius:2px;padding:14px;box-shadow:0 3px 9px rgba(var(--ink-rgb),.05)}.small{font:12px var(--mono);color:var(--muted)}
+.index-board{display:grid;gap:12px}.index-card{position:relative;background:var(--paper2);border:1px solid var(--line-strong);border-radius:2px;padding:12px 13px;box-shadow:2px 4px 0 rgba(var(--ink-rgb),.06);overflow:hidden}.index-card:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(71,85,105,.014) 0 1px,transparent 1px 9px);pointer-events:none}.index-head{display:flex;justify-content:space-between;gap:8px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:7px;margin-bottom:8px}.index-title{font:12px var(--mono);font-weight:bold;letter-spacing:.03em}.field{display:grid;grid-template-columns:minmax(110px,34%) 1fr;gap:9px;padding:6px 0;border-bottom:1px dotted var(--line-strong);font-size:13px}.field:last-child{border-bottom:0}.field-key{font-family:var(--mono);font-size:11px;color:var(--accent-dark);border-bottom:2px solid var(--accent);padding-bottom:1px}.field-key.linked{color:var(--accent-deep);border-bottom-color:var(--accent-deep);font-weight:bold}.field-value{font-family:var(--mono);font-size:12px}.null{color:var(--muted);font-style:italic}.join-tag{position:absolute;right:8px;top:8px;font:10px var(--mono);padding:3px 6px;border:1px solid;border-radius:2px;background:var(--surface-soft)}.join-tag.match{color:var(--green-dark);border-color:var(--green-border)}.join-tag.unpaired{color:var(--red);border-color:var(--red-border)}.null-flash{animation:nullFlash 1.35s ease-out}.key-note{font:11px var(--mono);color:var(--amber);margin-top:8px}
+.join-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.join-btn{border:2px solid var(--line-strong);background:var(--surface-soft);color:var(--ink);border-radius:3px;padding:12px 10px;text-align:left;min-height:94px;transition:.15s;box-shadow:2px 3px 0 rgba(var(--ink-rgb),.06)}.join-btn:hover{border-color:var(--accent-dark);transform:translateY(-1px)}.join-btn.selected{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.16),2px 4px 0 rgba(var(--ink-rgb),.08)}.join-top{display:flex;align-items:center;gap:9px}.venn{width:38px;height:30px;flex:none}.venn circle{fill:none;stroke:var(--accent-dark);stroke-width:1.8}.venn .fill{fill:var(--accent-teal);fill-opacity:.65;stroke:var(--accent-dark)}.venn .intersection{fill:var(--accent-deep);fill-opacity:.8}.join-name{font:14px var(--mono);font-weight:bold;color:var(--accent-dark)}.join-desc{font:11px var(--mono);color:var(--muted);display:block;margin-top:7px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{border:1px solid var(--accent-dark);border-radius:3px;padding:10px 15px;font-family:var(--mono);font-weight:bold;letter-spacing:.02em}.btn.primary{background:var(--accent);color:var(--cream);border-color:var(--accent)}.btn.primary:hover{background:var(--accent-deep);border-color:var(--accent-deep)}.btn.secondary{background:var(--amber-bg);color:var(--ink)}.btn.ghost{background:var(--surface-soft);color:var(--ink);border-color:var(--line-strong)}.btn.danger{background:var(--red-bg);color:var(--red-dark);border-color:var(--red-border)}.btn:disabled{opacity:.45;cursor:not-allowed}textarea{width:100%;min-height:105px;border:1px solid var(--line-strong);border-radius:2px;padding:12px;resize:vertical;background:var(--paper2);color:var(--ink);font-family:var(--mono);font-size:12px}textarea:focus,.join-btn:focus,.btn:focus{outline:3px solid rgba(var(--accent-rgb),.22);outline-offset:2px}.feedback{border-radius:2px;padding:15px;margin-top:15px;border:1px solid}.feedback.info{background:var(--info-bg);border-color:var(--info-border);color:var(--accent-dark)}.feedback.warn{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber-dark)}.feedback.good{background:var(--green-bg);border-color:var(--green-border);color:var(--green-text)}.feedback.bad{background:var(--red-bg);border-color:var(--red-border);color:var(--red-dark)}.hint-box{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:2px;padding:13px;font-family:var(--mono);font-size:12px}.hidden{display:none!important}.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}.stat{background:var(--surface-muted);border:1px solid var(--line-strong);border-radius:2px;padding:14px}.stat strong{display:block;font:23px var(--mono);font-weight:bold}.stat span{font:11px var(--mono);color:var(--muted)}.table-wrap{overflow:auto;border:1px solid var(--line-strong);border-radius:2px;background:var(--surface-soft)}.report-table{min-width:700px;width:100%;border-collapse:collapse}.report-table th,.report-table td{padding:8px;border-bottom:1px solid var(--line);text-align:left;font:11px var(--mono)}.report-table th{background:var(--surface-muted);color:var(--ink);text-transform:uppercase}.footer-note{text-align:center;color:var(--muted);font:11px var(--mono);padding:6px 0 24px}
+.stamp-overlay{position:fixed;inset:0;background:rgba(var(--ink-rgb),.38);display:grid;place-items:center;z-index:50;opacity:0;pointer-events:none}.stamp-overlay.show{animation:stampBackdrop .85s ease-out forwards}.stamp{font-family:var(--mono);font-weight:bold;font-size:clamp(52px,13vw,135px);letter-spacing:.08em;border:9px solid currentColor;padding:18px 30px;transform:rotate(-8deg) scale(2.5);opacity:0;text-shadow:2px 2px 0 rgba(0,0,0,.08)}.stamp.good{color:var(--green)}.stamp.bad{color:var(--red)}.stamp-overlay.show .stamp{animation:stampHit .85s cubic-bezier(.2,.9,.25,1.2) forwards}@keyframes stampHit{0%{transform:rotate(-8deg) scale(2.7);opacity:0}45%{transform:rotate(-8deg) scale(.92);opacity:1}65%{transform:rotate(-8deg) scale(1.05);opacity:1}100%{transform:rotate(-8deg) scale(1);opacity:1}}@keyframes stampBackdrop{0%{opacity:0}18%{opacity:1}85%{opacity:1}100%{opacity:0}}@keyframes nullFlash{0%,100%{background:transparent;box-shadow:none}25%{background:var(--amber-border);box-shadow:0 0 0 4px rgba(var(--amber-rgb),.22)}55%{background:var(--amber-bg);box-shadow:0 0 0 2px rgba(var(--amber-rgb),.12)}}
+@media(max-width:760px){.app{padding:10px}.card{padding:16px}.grid.two{grid-template-columns:1fr}.join-options{grid-template-columns:1fr}.score-grid{grid-template-columns:repeat(2,1fr)}header{padding:18px}.case-heading{align-items:flex-start}.field{grid-template-columns:1fr}.stamp{border-width:6px;padding:12px 16px}}
+@media (max-width:620px){.step-heading{gap:8px}.step-heading .step-number{width:28px;height:28px;flex-basis:28px;font-size:15px}.hero-illustration{margin-bottom:16px}.official-stamp{width:98px;height:98px;top:12px;right:12px;opacity:.26}}@media print{body{background:white}body:after{display:none}.app{max-width:none;padding:0}header,.actions,.no-print,.stamp-overlay{display:none!important}.card{box-shadow:none;border:1px solid var(--muted);break-inside:avoid}.screen{display:none!important}#reportScreen{display:block!important}.footer-note{display:none}}
+</style>
+
+
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand">
+    <div class="logo" aria-label="Detektif data">
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <g transform="rotate(15 24 24)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="20" cy="20" r="12" stroke-width="2.8"/>
+          <path d="M28.5 28.5L39.5 39.5" stroke-width="2.8"/>
+          <g opacity=".72" stroke-width="1.25">
+            <path d="M14 16.5h10.5l2.5 2v8.5H14z"/>
+            <path d="M16 14h9.5l2.5 2v8.5"/>
+            <path d="M14 20h13"/>
+            <path d="M14 23h13"/>
+            <path d="M16 14v2h12"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <h1>Office Data Detective</h1>
+      <p class="subtitle">Misi: menemukan JOIN yang tepat untuk laporan kantor.</p>
+    </div>
+  </div>
+  <div class="topbar">
+    <div class="progress-wrap">
+      <div class="case-tabs" id="caseTabs"></div>
+      <div class="progress-label" id="progressLabel">Berkas belum dibuka</div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="startScreen" class="screen active">
+ <div class="card">
+
+  <span class="badge blue">20–30 menit • Mandiri • Offline</span>
+  <div class="hero-illustration" aria-hidden="true"><svg viewBox="0 0 240 170" focusable="false">
+    <g class="folder-stack">
+      <path d="M28 48h60l10 9h88v70H28z"/>
+      <path d="M36 39h56l10 9h78v70H36z"/>
+      <path d="M45 51h53l10 9h75v70H45z"/>
+      <path d="M52 67h48l10 9h72v60H52z"/>
+      <line x1="72" y1="91" x2="139" y2="91"/>
+      <line x1="72" y1="103" x2="130" y2="103"/>
+      <line x1="72" y1="115" x2="119" y2="115"/>
+    </g>
+    <g class="hero-sparkle">
+      <line x1="31" y1="30" x2="39" y2="22"/>
+      <line x1="21" y1="40" x2="31" y2="40"/>
+      <line x1="31" y1="50" x2="39" y2="58"/>
+    </g>
+    <g class="hero-magnifier">
+      <circle cx="151" cy="87" r="31"/>
+      <line x1="172" y1="109" x2="181" y2="118"/>
+      <path d="M181 118l29 29"/>
+      <line x1="137" y1="78" x2="159" y2="78"/>
+      <line x1="133" y1="87" x2="163" y2="87"/>
+      <line x1="137" y1="96" x2="159" y2="96"/>
+      <line x1="141" y1="105" x2="155" y2="105"/>
+    </g>
+    <line x1="24" y1="150" x2="201" y2="150" class="desk-line"/>
+  </svg></div>
+<h2>Selamat datang, Detektif Data!</h2>
+  <p>Kamu adalah staf administrasi yang diminta membuat laporan dari <b>dua tabel</b>. Tugasmu bukan sekadar memilih JOIN, tetapi membuktikan pilihanmu lewat hasil tabel dan alasan.</p>
+  <div class="grid two">
+   <div class="callout"><b>Yang akan kamu lakukan</b><ul><li>Membaca kebutuhan laporan.</li><li>Menentukan INNER, LEFT, atau RIGHT JOIN.</li><li>Melihat konsekuensi pilihanmu pada tabel hasil.</li><li>Menulis alasan singkat.</li></ul></div>
+   <div class="callout"><b>Petunjuk penting</b><ul><li>Perhatikan tabel mana yang harus tampil <b>semua</b>.</li><li>LEFT/RIGHT ditentukan oleh posisi tabel.</li><li>Nilai kosong/NULL dapat menjadi petunjuk, bukan otomatis kesalahan.</li></ul></div>
+  </div>
+  <div class="actions"><button class="btn primary" onclick="startGame()"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M5 3.5l7 4.5-7 4.5z"/></svg></span>Mulai Game</button></div>
+ </div>
+</section>
+
+<section id="caseScreen" class="screen">
+ <div class="card">
+  <div class="case-meta"><span class="badge blue" id="caseNumber"></span><span class="badge" id="caseLevel"></span></div>
+  <div class="case-heading"><div class="case-icon" id="caseIcon"></div><h2 id="caseTitle"></h2></div>
+  <div class="scenario"><b>Pesan dari atasan:</b><p id="caseNeed"></p></div>
+  <p class="muted" id="caseInstruction"></p>
+  <div class="grid two" id="sourceTables"></div>
+
+  <h3 class="step-heading"><span class="step-number">1</span><span>LANGKAH 1: Tentukan JOIN</span></h3>
+  <p class="small muted">Dalam game ini, tabel pertama yang ditampilkan adalah <b>tabel kiri</b>. Tabel kedua adalah <b>tabel kanan</b>.</p>
+  <div class="join-options" id="joinOptions">
+    <button class="join-btn" data-join="INNER" onclick="chooseJoin('INNER')"><span class="join-top"><svg class="venn inner" viewBox="0 0 42 30" aria-hidden="true"><defs><clipPath id="innerClipPractice"><circle cx="16" cy="15" r="10"/></clipPath></defs><circle cx="16" cy="15" r="10"/><circle cx="26" cy="15" r="10"/><circle cx="26" cy="15" r="10" class="intersection" clip-path="url(#innerClipPractice)"/></svg><span class="join-name">INNER JOIN</span></span><span class="join-desc">Hanya pasangan yang ditemukan di kedua tabel.</span></button>
+    <button class="join-btn" data-join="LEFT" onclick="chooseJoin('LEFT')"><span class="join-top"><svg class="venn left" viewBox="0 0 42 30"><circle cx="16" cy="15" r="10" class="fill"/><circle cx="26" cy="15" r="10" class=""/></svg><span class="join-name">LEFT JOIN</span></span><span class="join-desc">Semua baris tabel kiri + pasangan jika ada.</span></button>
+    <button class="join-btn" data-join="RIGHT" onclick="chooseJoin('RIGHT')"><span class="join-top"><svg class="venn right" viewBox="0 0 42 30"><circle cx="16" cy="15" r="10" class=""/><circle cx="26" cy="15" r="10" class="fill"/></svg><span class="join-name">RIGHT JOIN</span></span><span class="join-desc">Semua baris tabel kanan + pasangan jika ada.</span></button>
+  </div>
+
+  <div id="choiceFeedback" class="hidden"></div>
+  <div id="resultArea" class="hidden">
+    <h3 class="step-heading"><span class="step-number">2</span><span>LANGKAH 2: Lihat bukti hasil JOIN</span></h3>
+    <div id="resultTable"></div>
+    <div class="small muted" id="resultCaption"></div>
+
+    <h3 class="step-heading"><span class="step-number">3</span><span>LANGKAH 3: Jelaskan alasanmu</span></h3>
+    <label for="reason"><b>Mengapa JOIN tersebut sesuai dengan kebutuhan laporan?</b></label>
+    <textarea id="reason" placeholder="Contoh: Saya memilih LEFT JOIN karena semua karyawan harus tetap muncul, termasuk yang belum memiliki data absensi."></textarea>
+    <div class="actions">
+      <button class="btn secondary" id="hintBtn" onclick="showHint()"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M5.1 10.7c-.9-.8-1.6-1.9-1.6-3.3A4.5 4.5 0 0 1 8 2.9a4.5 4.5 0 0 1 4.5 4.5c0 1.4-.7 2.5-1.6 3.3-.5.5-.8.9-.8 1.5H5.9c0-.6-.3-1-.8-1.5z"/><path d="M6 14h4M6.7 15h2.6"/></svg></span>Lihat Petunjuk</button>
+      <button class="btn primary" id="submitBtn" onclick="submitCase()">Kirim Jawaban</button>
+      <button class="btn ghost hidden" id="retryBtn" onclick="retryCase()"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M13 5.5V2.8M13 2.8h-2.7"/><path d="M12.5 5.5A5.5 5.5 0 1 0 13 9"/></svg></span>Coba Lagi</button>
+      <button class="btn ghost hidden" id="nextBtn" onclick="nextCase()">Lanjut →</button>
+    </div>
+    <div id="hintArea" class="hint-box hidden"></div>
+    <div id="explanation" class="feedback hidden"></div>
+  </div>
+ </div>
+</section>
+
+<section id="finalScreen" class="screen">
+ <div class="card">
+  <span class="badge orange">TANTANGAN AKHIR</span>
+  <h2 id="finalTitle"></h2>
+  <div class="scenario"><b>Instruksi:</b><p id="finalNeed"></p></div>
+  <div class="grid two" id="finalTables"></div>
+  <div class="callout"><b>Aturan tantangan akhir</b><br>Hanya satu jawaban akhir. Petunjuk latihan sebelumnya tidak tersedia. Setelah dikirim, hasil dan penjelasan ditampilkan.</div>
+  <h3>Pilih JOIN</h3>
+  <div class="join-options" id="finalJoinOptions">
+   <button class="join-btn" data-fjoin="INNER" onclick="chooseFinal('INNER')"><span class="join-top"><svg class="venn inner" viewBox="0 0 42 30" aria-hidden="true"><defs><clipPath id="innerClipFinal"><circle cx="16" cy="15" r="10"/></clipPath></defs><circle cx="16" cy="15" r="10"/><circle cx="26" cy="15" r="10"/><circle cx="26" cy="15" r="10" class="intersection" clip-path="url(#innerClipFinal)"/></svg><span class="join-name">INNER JOIN</span></span><span class="join-desc">Hanya pasangan yang ada di kedua tabel.</span></button>
+   <button class="join-btn" data-fjoin="LEFT" onclick="chooseFinal('LEFT')"><span class="join-top"><svg class="venn left" viewBox="0 0 42 30"><circle cx="16" cy="15" r="10" class="fill"/><circle cx="26" cy="15" r="10" class=""/></svg><span class="join-name">LEFT JOIN</span></span><span class="join-desc">Semua baris tabel kiri.</span></button>
+   <button class="join-btn" data-fjoin="RIGHT" onclick="chooseFinal('RIGHT')"><span class="join-top"><svg class="venn right" viewBox="0 0 42 30"><circle cx="16" cy="15" r="10" class=""/><circle cx="26" cy="15" r="10" class="fill"/></svg><span class="join-name">RIGHT JOIN</span></span><span class="join-desc">Semua baris tabel kanan.</span></button>
+  </div>
+  <label><b>Alasanmu</b></label>
+  <textarea id="finalReason" placeholder="Jelaskan berdasarkan siapa yang harus tetap tampil dan bagaimana tabel dihubungkan."></textarea>
+  <div class="actions"><button class="btn primary" id="finalSubmit" onclick="submitFinal()">Kirim Jawaban Akhir</button></div>
+  <div id="finalResult" class="hidden"></div>
+  <div class="actions hidden" id="reportAction"><button class="btn primary" onclick="showReport()"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 13V8M8 13V4M13 13V6"/><path d="M2 13.5h12"/></svg></span>Lihat Laporan Belajar</button></div>
+ </div>
+</section>
+
+<section id="reportScreen" class="screen">
+ <div class="card">
+  <svg class="official-stamp" viewBox="0 0 180 180" aria-hidden="true" focusable="false">
+   <defs>
+    <path id="officeStampTop" d="M 25 90 A 65 65 0 0 1 155 90"/>
+    <path id="officeStampBottom" d="M 25 90 A 65 65 0 0 0 155 90"/>
+   </defs>
+   <circle cx="90" cy="90" r="68" fill="none" stroke="currentColor" stroke-width="1.5"/>
+   <circle cx="90" cy="90" r="61" fill="none" stroke="currentColor" stroke-width="1"/>
+   <text class="stamp-text" font-size="9.5" letter-spacing="1.2">
+    <textPath href="#officeStampTop" startOffset="50%" text-anchor="middle">OFFICE DATA DETECTIVE</textPath>
+   </text>
+   <text class="stamp-text" font-size="8.5" letter-spacing="1.8">
+    <textPath href="#officeStampBottom" startOffset="50%" text-anchor="middle">BERKAS RESMI</textPath>
+   </text>
+   <circle cx="90" cy="90" r="3" fill="none" stroke="currentColor" stroke-width="1"/>
+  </svg>
+  <span class="badge green">LAPORAN BELAJAR</span>
+  <h2>Laporan Belajar — Office Data Detective</h2>
+  <p class="muted">Laporan ini membaca pola proses belajar, bukan menilai kemampuan hanya dari kecepatan atau jumlah poin.</p>
+  <div class="score-grid">
+   <div class="stat"><strong id="statCorrect">0</strong><span>Latihan benar</span></div>
+   <div class="stat"><strong id="statAttempts">0</strong><span>Total percobaan JOIN</span></div>
+   <div class="stat"><strong id="statHints">0</strong><span>Petunjuk digunakan</span></div>
+   <div class="stat"><strong id="statFinal">—</strong><span>Hasil final</span></div>
+  </div>
+  <h3>Pola proses per kasus</h3>
+  <div class="table-wrap"><table class="report-table"><thead><tr><th>Kasus</th><th>JOIN benar</th><th>Pilihan siswa</th><th>Percobaan</th><th>Jenis kesalahan</th><th>Kualitas alasan</th><th>Petunjuk</th></tr></thead><tbody id="reportBody"></tbody></table></div>
+  <h3>Tantangan akhir</h3>
+  <div id="finalReport" class="callout"></div>
+  <h3>Interpretasi pembelajaran</h3>
+  <div id="interpretation" class="callout"></div>
+  <div class="actions no-print">
+   <button class="btn primary" onclick="window.print()"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4.5 6V2.5h7V6M4 11.5H2.5V6.5h11V11.5H12"/><path d="M4.5 9.5h7v4h-7z"/><path d="M11.5 8h.01"/></svg></span>Cetak / Simpan PDF</button>
+   <button class="btn secondary" onclick="downloadReport()"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 2.5v8"/><path d="M5 7.5l3 3 3-3"/><path d="M3 12.5h10v2H3z"/></svg></span>Simpan laporan .txt</button>
+   <button class="btn danger" onclick="resetGame()">Reset Permainan</button>
+  </div>
+ </div>
+</section>
+</main>
+<div id="stampOverlay" class="stamp-overlay" aria-hidden="true"><div id="stampText" class="stamp">TEPAT</div></div>
+<div class="footer-note">Office Data Detective • berjalan lokal tanpa internet • data latihan bersifat simulasi</div>
+</div>
+
+<script>
+const cases = [
+{
+ id:1, level:"Pemanasan", title:"Laporan Absensi Harian",
+ need:"Kepala tata usaha meminta daftar SEMUA karyawan hari ini. Jika seorang karyawan belum memiliki catatan absensi, namanya tetap harus muncul agar dapat ditindaklanjuti.",
+ left:{name:"Tabel Karyawan", rows:[
+  {ID_Karyawan:"K01",Nama:"Alya",Bagian:"Administrasi"},
+  {ID_Karyawan:"K02",Nama:"Bima",Bagian:"Keuangan"},
+  {ID_Karyawan:"K03",Nama:"Citra",Bagian:"HR"},
+  {ID_Karyawan:"K04",Nama:"Doni",Bagian:"Administrasi"}]},
+ right:{name:"Tabel Absensi", rows:[
+  {ID_Absensi:"A01",ID_Karyawan:"K01",Status:"Hadir"},
+  {ID_Absensi:"A02",ID_Karyawan:"K03",Status:"Hadir"},
+  {ID_Absensi:"A03",ID_Karyawan:"K04",Status:"Terlambat"}]},
+ key:"ID_Karyawan", correct:"LEFT",
+ explanation:"Semua karyawan harus tampil, termasuk K02 yang belum memiliki pasangan di tabel Absensi. Karena Tabel Karyawan berada di kiri, LEFT JOIN mempertahankan semua baris Karyawan. K02 menghasilkan NULL pada kolom Absensi; itu justru informasi yang dibutuhkan.",
+ traps:{INNER:"INNER JOIN menghilangkan K02 karena tidak punya pasangan.",RIGHT:"RIGHT JOIN mempertahankan semua Absensi, bukan semua Karyawan."}
+},
+{
+ id:2, level:"Dasar", title:"Peminjaman Peralatan Kantor",
+ need:"Petugas inventaris meminta daftar barang yang sedang dipinjam, dan hanya barang yang benar-benar memiliki transaksi peminjaman yang perlu masuk laporan.",
+ left:{name:"Tabel Barang", rows:[
+  {Kode_Barang:"B01",Nama_Barang:"Laptop"},
+  {Kode_Barang:"B02",Nama_Barang:"Proyektor"},
+  {Kode_Barang:"B03",Nama_Barang:"Kamera"},
+  {Kode_Barang:"B04",Nama_Barang:"Mesin Cetak"}]},
+ right:{name:"Tabel Peminjaman", rows:[
+  {ID_Pinjam:"P01",Kode_Barang:"B01",Peminjam:"Rina"},
+  {ID_Pinjam:"P02",Kode_Barang:"B03",Peminjam:"Sari"}]},
+ key:"Kode_Barang", correct:"INNER",
+ explanation:"Laporan hanya membutuhkan barang yang memiliki transaksi peminjaman. INNER JOIN menyisakan B01 dan B03 karena keduanya memiliki pasangan di kedua tabel. Barang tanpa transaksi tidak diperlukan.",
+ traps:{LEFT:"LEFT JOIN akan menampilkan semua barang, termasuk yang tidak sedang dipinjam.",RIGHT:"RIGHT JOIN mempertahankan semua transaksi; di kasus ini hasilnya mirip karena semua transaksi punya barang, tetapi kebutuhan laporan berfokus pada pasangan yang valid."}
+},
+{
+ id:3, level:"Menengah", title:"Daftar Pesanan Pelanggan",
+ need:"Manajer layanan pelanggan ingin melihat SEMUA pelanggan yang terdaftar. Pelanggan yang belum pernah membuat pesanan tetap harus terlihat agar tim dapat melakukan tindak lanjut.",
+ left:{name:"Tabel Pesanan", rows:[
+  {No_Pesanan:"P100",ID_Pelanggan:"C01",Produk:"Map Arsip"},
+  {No_Pesanan:"P101",ID_Pelanggan:"C03",Produk:"Kertas A4"},
+  {No_Pesanan:"P102",ID_Pelanggan:"C03",Produk:"Toner"}]},
+ right:{name:"Tabel Pelanggan", rows:[
+  {ID_Pelanggan:"C01",Nama:"Nadia"},
+  {ID_Pelanggan:"C02",Nama:"Oki"},
+  {ID_Pelanggan:"C03",Nama:"Putra"},
+  {ID_Pelanggan:"C04",Nama:"Rani"}]},
+ key:"ID_Pelanggan", correct:"RIGHT",
+ explanation:"Semua pelanggan harus tampil. Tabel Pelanggan berada di kanan, sehingga RIGHT JOIN mempertahankan semua baris Pelanggan. C02 dan C04 akan memiliki NULL pada kolom Pesanan karena belum pernah memesan.",
+ traps:{INNER:"INNER JOIN hanya menampilkan pelanggan yang punya pesanan.",LEFT:"LEFT JOIN mempertahankan semua Pesanan, bukan semua Pelanggan. Perhatikan posisi tabel!"}
+},
+{
+ id:4, level:"Cermat", title:"Rekap Layanan Dokumen",
+ need:"Koordinator meminta daftar semua permintaan layanan yang benar-benar memiliki data penyelesaian. Permintaan yang belum punya catatan penyelesaian tidak dimasukkan ke rekap selesai.",
+ left:{name:"Tabel Permintaan", rows:[
+  {ID_Permintaan:"R01",Pemohon:"Dewi",Jenis:"Scan"},
+  {ID_Permintaan:"R02",Pemohon:"Eko",Jenis:"Cetak"},
+  {ID_Permintaan:"R03",Pemohon:"Fani",Jenis:"Jilid"}]},
+ right:{name:"Tabel Penyelesaian", rows:[
+  {ID_Selesai:"S01",ID_Permintaan:"R01",Status:"Selesai"},
+  {ID_Selesai:"S02",ID_Permintaan:"R03",Status:"Selesai"}]},
+ key:"ID_Permintaan", correct:"INNER",
+ explanation:"Karena yang dicari adalah permintaan yang memiliki catatan penyelesaian, hanya pasangan yang ada di kedua tabel yang dibutuhkan. INNER JOIN menghilangkan R02 yang belum selesai.",
+ traps:{LEFT:"LEFT JOIN akan memasukkan R02 meskipun tidak punya catatan penyelesaian.",RIGHT:"RIGHT JOIN mempertahankan semua catatan penyelesaian; fokus kebutuhan adalah pasangan valid antara permintaan dan penyelesaian."}
+}
+];
+
+const finalCase = {
+ title:"Inventaris Gudang & Peminjaman",
+ need:"Kepala gudang meminta daftar SEMUA barang yang tercatat di gudang, sekaligus informasi peminjaman jika ada. Barang yang belum pernah dipinjam tidak boleh hilang dari laporan.",
+ left:{name:"Tabel Barang Gudang", rows:[
+  {Kode:"G01",Barang:"Stapler"},
+  {Kode:"G02",Barang:"Laptop"},
+  {Kode:"G03",Barang:"Proyektor"},
+  {Kode:"G04",Barang:"Scanner"},
+  {Kode:"G05",Barang:"Kursi Rapat"}]},
+ right:{name:"Tabel Peminjaman", rows:[
+  {ID:"PJ01",Kode:"G02",Peminjam:"Lala"},
+  {ID:"PJ02",Kode:"G03",Peminjam:"Miko"},
+  {ID:"PJ03",Kode:"G02",Peminjam:"Nina"}]},
+ key:"Kode", correct:"LEFT",
+ explanation:"Semua barang gudang harus tetap muncul, sehingga tabel kiri (Barang Gudang) harus dipertahankan. LEFT JOIN menampilkan G01, G04, dan G05 dengan NULL pada informasi peminjaman. G02 muncul dua kali karena memiliki dua transaksi peminjaman.",
+};
+
+let state = {
+ caseIndex:0, selected:null, finalSelected:null, hintCount:0, finalAttempts:0,
+ records:[], final:null, started:false
+};
+
+function $(id){return document.getElementById(id)}
+function show(id){
+ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+ $(id).classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function updateProgress(){
+ const tabs=$("caseTabs");
+ if(tabs){
+  const items=[...cases.map(c=>({label:`Kasus ${c.id}`,state:state.caseIndex>c.id-1?"done":state.caseIndex===c.id-1?"active":"locked"})),{label:"Akhir",state:state.caseIndex>=cases.length?"active":"locked"}];
+  tabs.innerHTML=items.map(x=>`<span class="folder-tab ${x.state}">${x.state==="locked"?`<span class="line-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><rect x="3.5" y="7" width="9" height="7" rx="1"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg></span>`:x.state==="done"?`<span class="line-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8.2l3.1 3.1L13 4.8"/></svg></span>`:""}${x.label}</span>`).join("");
+ }
+ $("progressLabel").textContent=!state.started?"Berkas belum dibuka":state.caseIndex<cases.length?`Berkas aktif • Kasus ${state.caseIndex+1} dari ${cases.length}`:"Berkas akhir • Tantangan Akhir";
+}
+function startGame(){
+ state={caseIndex:0,selected:null,finalSelected:null,hintCount:0,finalAttempts:0,records:[],final:null,started:true};
+ renderCase(); updateProgress(); show("caseScreen");
+}
+const caseIcons={
+  "Laporan Absensi Harian":`<svg viewBox="0 0 48 48"><rect x="9" y="6" width="30" height="36" rx="2"/><path d="M15 13h18M15 20h18M15 27h10M15 34h14"/><circle cx="34" cy="28" r="5"/></svg>`,
+  "Peminjaman Peralatan Kantor":`<svg viewBox="0 0 48 48"><rect x="9" y="13" width="30" height="25" rx="2"/><path d="M17 13V9h14v4M14 20h20M19 27h10M21 32h6"/></svg>`,
+  "Daftar Pesanan Pelanggan":`<svg viewBox="0 0 48 48"><path d="M6 14h23l3 18H10z"/><path d="M29 20h7l6 7v5H31M15 37a3 3 0 1 0 0 .1M35 37a3 3 0 1 0 0 .1"/></svg>`,
+  "Rekap Layanan Dokumen":`<svg viewBox="0 0 48 48"><path d="M8 8h32v32H8zM14 14h20M14 21h20M14 28h12M14 34h8"/><path d="M34 27v10M29 32l5 5 5-5"/></svg>`
+};
+function renderCase(){
+ const c=cases[state.caseIndex];
+ $("caseNumber").textContent=`KASUS ${c.id}`; $("caseLevel").textContent=c.level; $("caseTitle").textContent=c.title; $("caseIcon").innerHTML=caseIcons[c.title]||caseIcons["Rekap Layanan Dokumen"];
+ $("caseNeed").textContent=c.need; $("caseInstruction").textContent="Baca kebutuhan laporan, perhatikan tabel kiri/kanan, lalu pilih JOIN. Kamu boleh mengganti pilihan untuk melihat konsekuensinya.";
+ $("sourceTables").innerHTML=tableCard(c.left,c.key)+tableCard(c.right,c.key);
+ $("joinOptions").querySelectorAll(".join-btn").forEach(b=>b.classList.remove("selected")); $("choiceFeedback").className="hidden"; $("choiceFeedback").innerHTML=""; $("resultArea").classList.add("hidden"); $("hintArea").classList.add("hidden"); $("explanation").className="feedback hidden";
+ $("reason").value=""; $("hintBtn").disabled=false; $("submitBtn").disabled=false; $("retryBtn").classList.add("hidden"); $("nextBtn").classList.add("hidden"); state.selected=null; state.currentAttempts=0; state.currentChoiceHistory=[];
+}
+function tableCard(t,key){ return `<div><h3>${escapeHtml(t.name)}</h3><div class="index-board">${makeIndexCards(t.rows,key)}</div><div class="key-note">Garis bawah = kolom penghubung: ${escapeHtml(key)}</div></div>`; }
+function makeIndexCards(rows,key,joined=false){
+ if(!rows.length)return `<div class="index-card"><span class="muted">Tidak ada kartu data.</span></div>`;
+ return rows.map(r=>{
+  const cols=Object.keys(r), unpaired=joined&&cols.some(c=>r[c]==null);
+  return `<div class="index-card ${unpaired?'has-null':''}">${joined?`<span class="join-tag ${unpaired?'unpaired':'match'}"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 16 16">${unpaired?'<path d="M4 4l8 8M12 4l-8 8"/>':'<path d="M3 8.2l3.1 3.1L13 4.8"/>'}</svg></span>${unpaired?'tidak berpasangan':'cocok'}</span>`:''}<div class="index-head"><span class="index-title">KARTU DATA</span><span class="small">${unpaired?'PERLU PERHATIAN':'TERCATAT'}</span></div>${cols.map(c=>`<div class="field"><span class="field-key ${key&&String(c).replace(/^L_|^R_/,'')===key?'linked':''}">${escapeHtml(c)}</span><span class="field-value ${r[c]==null?'null':''} ${r[c]==null&&joined?'null-flash':''}">${r[c]==null?'NULL':escapeHtml(r[c])}</span></div>`).join('')}</div>`;
+ }).join('');
+}
+function makeTable(rows,key){ return `<div class="index-board">${makeIndexCards(rows,key,true)}</div>`; }
+function escapeHtml(x){return String(x).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+function chooseJoin(join){
+ state.selected=join;
+ state.currentAttempts=(state.currentAttempts||0)+1;
+ $("joinOptions").querySelectorAll(".join-btn").forEach(b=>{
+   b.classList.toggle("selected",b.dataset.join===join);
+ });
+
+ const c=cases[state.caseIndex];
+
+ // Setelah memilih JOIN, tampilkan hanya hasil tabel secara netral.
+ // Tampilkan hanya hasil tabel agar siswa dapat membandingkan konsekuensinya.
+ $("choiceFeedback").className="feedback info";
+ $("choiceFeedback").innerHTML=
+   `<b>Pratinjau hasil.</b> Hasil di bawah menunjukkan apa yang terjadi jika ${join} JOIN digunakan pada kasus ini. Bandingkan dengan kebutuhan laporan sebelum mengirim jawaban.`;
+ $("choiceFeedback").classList.remove("hidden");
+
+ renderResult(c,join);
+ $("resultArea").classList.remove("hidden");
+
+ // Alasan tetap dapat ditulis setelah siswa membandingkan hasil.
+ $("submitBtn").classList.remove("hidden");
+ $("hintBtn").disabled=false;
+ $("retryBtn").classList.add("hidden");
+ $("nextBtn").classList.add("hidden");
+ $("explanation").className="feedback hidden";
+}
+
+function joinRows(left,right,key,type){
+ const lcols=Object.keys(left[0]||{}), rcols=Object.keys(right[0]||{});
+ const rows=[];
+ const rMatches = new Map();
+ right.forEach(r=>{const v=r[key]; if(!rMatches.has(v))rMatches.set(v,[]);rMatches.get(v).push(r)});
+ const combine=(l,r)=>{
+   const o={}; lcols.forEach(k=>o["L_"+k]=l[k]);
+   rcols.forEach(k=>o["R_"+k]=r?r[k]:null);
+   return o;
+ };
+ if(type==="INNER"||type==="LEFT"){
+  left.forEach(l=>{
+   const ms=rMatches.get(l[key])||[];
+   if(ms.length)ms.forEach(r=>rows.push(combine(l,r)));
+   else if(type==="LEFT")rows.push(combine(l,null));
+  });
+ }else{
+  const lMatches=new Map();
+  left.forEach(l=>{const v=l[key];if(!lMatches.has(v))lMatches.set(v,[]);lMatches.get(v).push(l)});
+  right.forEach(r=>{
+   const ms=lMatches.get(r[key])||[];
+   if(ms.length)ms.forEach(l=>rows.push(combine(l,r)));
+   else rows.push(combine(Object.fromEntries(lcols.map(k=>[k,null])),r));
+  });
+ }
+ return rows;
+}
+function renderResult(c,join){
+ const rows=joinRows(c.left.rows,c.right.rows,c.key,join);
+ $("resultTable").innerHTML=makeTable(rows,c.key);
+ requestAnimationFrame(()=>{document.querySelectorAll(".null-flash").forEach(el=>el.classList.remove("null-flash")); setTimeout(()=>document.querySelectorAll(".null").forEach(el=>el.classList.add("null-flash")),40);});
+ $("resultCaption").textContent=`${join} JOIN pada kolom penghubung ${c.key}. ${rows.length} baris dihasilkan.`;
+}
+function showHint(){
+ state.hintCount++;
+ const c=cases[state.caseIndex];
+ let text;
+ if(state.hintCount===1) text="Coba lihat lagi: apakah kamu butuh menampilkan SEMUA data dari salah satu tabel meskipun tidak berpasangan?";
+ else if(state.hintCount===2) text=`Sekarang perhatikan posisi tabel. Tabel mana yang berada di kiri/kanan dan harus tetap muncul semua? Kolom penghubungnya adalah ${c.key}.`;
+ else text=`Bandingkan hasil JOIN yang sedang terlihat dengan kebutuhan atasan. Cari baris yang hilang atau baris dengan NULL.`;
+ $("hintArea").innerHTML=`<span class="line-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M5.1 10.7c-.9-.8-1.6-1.9-1.6-3.3A4.5 4.5 0 0 1 8 2.9a4.5 4.5 0 0 1 4.5 4.5c0 1.4-.7 2.5-1.6 3.3-.5.5-.8.9-.8 1.5H5.9c0-.6-.3-1-.8-1.5z"/><path d="M6 14h4M6.7 15h2.6"/></svg></span>${escapeHtml(text)}`;
+ $("hintArea").classList.remove("hidden");
+}
+function assessReason(text,c,chosen){
+ const s=(text||"").toLowerCase();
+ if(!s.trim())return {level:"Belum diisi",detail:"Belum ada alasan yang dapat dinilai."};
+ const hasJoin=s.includes("inner")||s.includes("left")||s.includes("right")||s.includes("join");
+ const hasNeed=/(semua|tetap|muncul|hanya|pasangan|berpasangan|transaksi|laporan)/.test(s);
+ const hasPos=/(kiri|kanan|tabel kiri|tabel kanan)/.test(s);
+ const hasNull=/(null|kosong|tidak ada|belum)/.test(s);
+ if(chosen===c.correct && hasJoin && hasNeed && (hasPos||hasNull))return {level:"Kuat",detail:"Alasan menghubungkan jenis JOIN dengan kebutuhan, posisi tabel, atau dampak NULL."};
+ if(hasJoin && hasNeed)return {level:"Cukup",detail:"Alasan sudah mengaitkan JOIN dengan kebutuhan, tetapi belum lengkap pada posisi tabel atau konsekuensi hasil."};
+ return {level:"Perlu diperbaiki",detail:"Alasan menyebut pilihan atau hasil, tetapi hubungan logis dengan kebutuhan laporan belum jelas."};
+}
+function showStamp(correct){
+ const overlay=$("stampOverlay"), text=$("stampText"); if(!overlay)return;
+ text.textContent=correct?"TEPAT":"BELUM TEPAT"; text.className=`stamp ${correct?"good":"bad"}`;
+ overlay.classList.remove("show"); void overlay.offsetWidth; overlay.classList.add("show");
+ setTimeout(()=>overlay.classList.remove("show"),1050);
+}
+function submitCase(){
+ const c=cases[state.caseIndex], chosen=state.selected, reason=$("reason").value;
+ if(!chosen){alert("Pilih salah satu JOIN terlebih dahulu.");return}
+ const correct=chosen===c.correct, quality=assessReason(reason,c,chosen);
+ showStamp(correct);
+ const errorType=correct ? (quality.level==="Kuat"?"Tidak ada":"Benar, alasan kurang logis") : classifyError(c,chosen);
+ const existing=state.records.find(r=>r.id===c.id);
+ if(!existing){
+  state.records.push({id:c.id,title:c.title,correctJoin:c.correct,choices:[chosen],attempts:state.currentAttempts,hints:state.hintCount,quality:quality.level,errorType,reason,answeredCorrect:correct});
+ }else{
+  existing.choices.push(chosen); existing.attempts=state.currentAttempts; existing.hints=state.hintCount; existing.reason=reason; existing.quality=quality.level; existing.answeredCorrect=correct;
+  existing.errorType=correct?(quality.level==="Kuat"?"Tidak ada":"Benar, alasan kurang logis"):classifyError(c,chosen);
+ }
+ const ex=$("explanation");
+ if(correct){
+  ex.className="feedback good hidden";
+  ex.innerHTML=`<b>Konsep terkonfirmasi.</b> ${escapeHtml(c.explanation)}<br><br><b>Penilaian alasan:</b> ${quality.level}. ${escapeHtml(quality.detail)}`;
+  $("submitBtn").classList.add("hidden"); $("hintBtn").disabled=true; $("retryBtn").classList.remove("hidden");
+  $("nextBtn").classList.remove("hidden");
+ }else{
+  ex.className="feedback info hidden";
+  ex.innerHTML=`<b>Belum tepat.</b> ${escapeHtml(c.traps?.[chosen] || "Gunakan hasil tabel sebagai bukti, lalu ubah pilihan JOIN jika perlu.")}<br><br>Gunakan hasil tabel sebagai bukti, lalu ubah pilihan JOIN jika perlu. Setelah kamu mencoba lagi, game akan memberi penjelasan konsep.`;
+  $("retryBtn").classList.remove("hidden");
+ }
+ setTimeout(()=>ex.classList.remove("hidden"),900);
+}
+function classifyError(c,chosen){
+ // Gunakan penjelasan spesifik yang sudah disediakan pada data kasus.
+ if(c.traps && c.traps[chosen]) return c.traps[chosen];
+ if((c.correct==="LEFT"&&chosen==="INNER")||(c.correct==="RIGHT"&&chosen==="INNER"))return "INNER vs JOIN yang mempertahankan semua baris";
+ if(c.correct==="RIGHT"&&chosen==="LEFT")return "Tertukar tabel kiri/kanan";
+ if(c.correct==="LEFT"&&chosen==="RIGHT")return "Tertukar tabel kiri/kanan";
+ return "Salah memilih jenis JOIN / membaca kebutuhan";
+}
+function retryCase(){
+ const c=cases[state.caseIndex];
+ $("submitBtn").classList.remove("hidden"); $("retryBtn").classList.add("hidden"); $("nextBtn").classList.add("hidden");
+ $("explanation").className="feedback info";
+ $("explanation").innerHTML=`<b>Coba lagi.</b> Petunjuk tetap tersedia. Pilih JOIN lain untuk melihat hasil tabel yang berbeda.`;
+ $("explanation").classList.remove("hidden");
+}
+function nextCase(){
+ state.caseIndex++;
+ if(state.caseIndex<cases.length){renderCase();updateProgress();window.scrollTo({top:0,behavior:"smooth"});}
+ else{renderFinal();updateProgress();show("finalScreen");}
+}
+function renderFinal(){
+ $("finalTitle").textContent=finalCase.title; $("finalNeed").textContent=finalCase.need;
+ $("finalTables").innerHTML=tableCard(finalCase.left,finalCase.key)+tableCard(finalCase.right,finalCase.key);
+ $("finalJoinOptions").querySelectorAll(".join-btn").forEach(b=>b.classList.remove("selected"));
+ $("finalReason").value=""; $("finalResult").classList.add("hidden"); $("finalSubmit").disabled=false;
+ state.finalSelected=null; state.finalAttempts=0;
+}
+function chooseFinal(j){state.finalSelected=j;state.finalAttempts++;$("finalJoinOptions").querySelectorAll(".join-btn").forEach(b=>b.classList.toggle("selected",b.dataset.fjoin===j))}
+function submitFinal(){
+ if(!state.finalSelected){alert("Pilih JOIN untuk tantangan akhir.");return}
+ const quality=assessReason($("finalReason").value,finalCase,state.finalSelected);
+ const correct=state.finalSelected===finalCase.correct;
+ showStamp(correct);
+ state.final={choice:state.finalSelected,attempts:state.finalAttempts,reason:$("finalReason").value,quality:quality.level,correct};
+ $("finalResult").className="feedback "+(correct?"good":"bad");
+ $("finalResult").innerHTML=correct
+  ? `<b>Jawaban akhir benar.</b> ${escapeHtml(finalCase.explanation)}<br><br><b>Kualitas alasan:</b> ${quality.level}. ${escapeHtml(quality.detail)}`
+  : `<b>Jawaban akhir belum tepat.</b> Hasil akhirnya: ${escapeHtml(finalCase.explanation)}<br><br><b>Kualitas alasan:</b> ${quality.level}. ${escapeHtml(quality.detail)}`;
+ $("finalResult").classList.add("hidden");
+ setTimeout(()=>$("finalResult").classList.remove("hidden"),900);
+ $("finalSubmit").disabled=true; $("reportAction").classList.remove("hidden");
+}
+function showReport(){
+ renderReport();show("reportScreen");updateProgress();
+}
+function renderReport(){
+ const correct=state.records.filter(r=>r.answeredCorrect).length;
+ $("statCorrect").textContent=`${correct}/${cases.length}`;
+ $("statAttempts").textContent=state.records.reduce((a,r)=>a+r.attempts,0);
+ $("statHints").textContent=state.records.reduce((a,r)=>a+r.hints,0);
+ $("statFinal").textContent=state.final?(state.final.correct?"Benar":"Perlu tindak lanjut"):"—";
+ $("reportBody").innerHTML=state.records.map(r=>`<tr>
+ <td>${r.id}. ${escapeHtml(r.title)}</td><td><b>${r.correctJoin}</b></td>
+ <td>${r.choices.map((x,i)=>`${i+1}. ${x}`).join("<br>")}</td><td>${r.attempts}</td>
+ <td>${escapeHtml(r.errorType)}</td><td>${escapeHtml(r.quality)}</td><td>${r.hints}</td>
+ </tr>`).join("");
+ $("finalReport").innerHTML=state.final
+  ? `<b>Pilihan:</b> ${state.final.choice} • <b>JOIN benar:</b> ${finalCase.correct} • <b>Percobaan:</b> ${state.final.attempts} • <b>Hasil:</b> ${state.final.correct?"Benar":"Belum tepat"} • <b>Alasan:</b> ${escapeHtml(state.final.quality)}`
+  : "Belum dikerjakan.";
+ const weak=state.records.filter(r=>!r.answeredCorrect || r.quality!=="Kuat");
+ let interp;
+ if(!weak.length) interp="Pada latihan, pilihan JOIN dan alasan menunjukkan pola yang konsisten. Tetap gunakan kebiasaan memeriksa siapa yang harus dipertahankan dan posisi tabel.";
+ else{
+  const types=[...new Set(weak.map(r=>r.errorType))];
+  interp=`Area yang perlu diperhatikan: ${types.map(escapeHtml).join("; ")}. Gunakan hasil tabel sebagai bukti: cek baris yang hilang, baris yang muncul dengan NULL, serta posisi tabel kiri/kanan.`;
+ }
+ if(state.final && !state.final.correct) interp+=" Tantangan akhir belum tepat, sehingga latihan tambahan tentang kebutuhan laporan dan posisi tabel dapat membantu.";
+ $("interpretation").textContent=interp;
+}
+function downloadReport(){
+ renderReport();
+ const lines=[
+ "OFFICE DATA DETECTIVE — LAPORAN BELAJAR",
+ "========================================",
+ `Latihan benar: ${$("statCorrect").textContent}`,
+ `Total percobaan JOIN: ${$("statAttempts").textContent}`,
+ `Petunjuk digunakan: ${$("statHints").textContent}`,
+ `Tantangan akhir: ${state.final?(state.final.correct?"Benar":"Belum tepat"):"Belum dikerjakan"}`,
+ "",
+ "DETAIL KASUS:"
+ ];
+ state.records.forEach(r=>lines.push(`Kasus ${r.id} | Benar: ${r.correctJoin} | Pilihan: ${r.choices.join(" -> ")} | Percobaan: ${r.attempts} | Kesalahan: ${r.errorType} | Alasan: ${r.quality} | Petunjuk: ${r.hints}`));
+ if(state.final)lines.push("",`FINAL | Pilihan: ${state.final.choice} | Benar: ${finalCase.correct} | Percobaan: ${state.final.attempts} | Alasan: ${state.final.quality}`);
+ const blob=new Blob([lines.join("\\n")],{type:"text/plain;charset=utf-8"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="office-data-detective-laporan.txt";a.click();URL.revokeObjectURL(a.href);
+}
+function resetGame(){
+ if(confirm("Reset seluruh proses dan laporan belajar?")){
+  state={caseIndex:0,selected:null,finalSelected:null,hintCount:0,finalAttempts:0,records:[],final:null,started:false};
+  updateProgress();show("startScreen");
+ }
+}
+function addPaperclipAccents(){
+ document.querySelectorAll(".card").forEach(card=>{
+  if(card.querySelector(":scope > .paperclip-icon"))return;
+  const wrap=document.createElement("span");
+  wrap.className="paperclip-icon";
+  wrap.setAttribute("aria-hidden","true");
+  wrap.innerHTML=`<svg viewBox="0 0 16 22"><path d="M11.8 5.5V15c0 3.1-2 5.2-4.8 5.2S2.2 18.1 2.2 15V6.4c0-2.2 1.3-3.8 3.3-3.8s3.3 1.5 3.3 3.6v8.2c0 1-.6 1.8-1.5 1.8s-1.5-.7-1.5-1.7V7.3"/></svg>`;
+  card.prepend(wrap);
+ });
+}
+addPaperclipAccents();
+updateProgress();
+</script>
+</body>
+</html>
